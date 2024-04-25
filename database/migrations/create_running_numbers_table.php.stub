@@ -1,0 +1,22 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('running_numbers_table', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
+            $table->string('prefix)->comment('one type has many series to use');
+            $table->unsignedInteger('number')->comment('for each type+prefix');
+            $table->json('data')->nullable()->comment('store additional settings');
+            $table->timestamps();
+
+            $table->unique('type', 'prefix');
+        });
+    }
+};

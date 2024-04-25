@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Soap\Laravel\RunningNumbers\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class RunningNumberCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-running-numbers';
 
     public $description = 'My command';
 
