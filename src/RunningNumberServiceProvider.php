@@ -2,9 +2,9 @@
 
 namespace Soap\Laravel\RunningNumbers;
 
+use Soap\Laravel\RunningNumbers\Commands\RunningNumberCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Soap\Laravel\RunningNumbers\Commands\RunningNumberCommand;
 
 class RunningNumberServiceProvider extends PackageServiceProvider
 {
