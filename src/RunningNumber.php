@@ -6,7 +6,6 @@ use Soap\Laravel\RunningNumbers\Models\RunningNumberKeeper;
 
 class RunningNumber
 {
-
     public static function getTablePrefix()
     {
         return config('running-numbers.table_prefix', '');
@@ -23,7 +22,7 @@ class RunningNumber
             ->where('prefix', $prefix)
             ->first();
 
-        if (!$runningNumber) {
+        if (! $runningNumber) {
             $runningNumber = new RunningNumberKeeper();
             $runningNumber->type = $type;
             $runningNumber->prefix = $prefix;
@@ -33,8 +32,8 @@ class RunningNumber
             if ($reset) {
                 $runningNumber->number = 1;
                 $runningNumber->save();
-            }else{
-                $runningNumber->number +=1;
+            } else {
+                $runningNumber->number += 1;
                 $runningNumber->save();
             }
             $runningNumber->save();

@@ -1,4 +1,4 @@
-# This is my package laravel-running-numbers
+# Maintain document running number for Laravel application
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/soap/laravel-running-numbers.svg?style=flat-square)](https://packagist.org/packages/soap/laravel-running-numbers)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/soap/laravel-running-numbers/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/soap/laravel-running-numbers/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -26,27 +26,22 @@ composer require soap/laravel-running-numbers
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-running-numbers-migrations"
+php artisan vendor:publish --tag="running-numbers-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-running-numbers-config"
+php artisan vendor:publish --tag="running-numbers-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+    'table_prefix' => '',
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-running-numbers-views"
 ```
 
 ## Usage
