@@ -1,4 +1,4 @@
-# This is my package laravel-running-numbers
+# Maintain document running number for Laravel application
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/soap/laravel-running-numbers.svg?style=flat-square)](https://packagist.org/packages/soap/laravel-running-numbers)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/soap/laravel-running-numbers/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/soap/laravel-running-numbers/actions?query=workflow%3Arun-tests+branch%3Amain)
