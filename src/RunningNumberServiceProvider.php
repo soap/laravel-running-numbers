@@ -4,7 +4,8 @@ namespace Soap\Laravel\RunningNumbers;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Soap\Laravel\RunningNumbers\Commands\RunningNumberCommand;
+use Soap\Laravel\RunningNumbers\Commands\RunningNumberInstallCommand;
+use Soap\Laravel\RunningNumbers\Commands\RunningNumberGenerateCommand;
 
 class RunningNumberServiceProvider extends PackageServiceProvider
 {
@@ -18,8 +19,10 @@ class RunningNumberServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-running-numbers')
             ->hasConfigFile()
-            ->hasViews()
             ->hasMigration('create_running-numbers_table')
-            ->hasCommand(RunningNumberCommand::class);
+            ->hasCommands([
+                RunningNumberInstallCommand::class,
+                RunningNumberGenerateCommand::class
+            ]);
     }
 }

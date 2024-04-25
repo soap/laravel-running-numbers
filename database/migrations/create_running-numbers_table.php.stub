@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Soap\Laravel\RunningNumbers\RuningNumber;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        $tableName = RunningNumber::getTableName();
+        Schema::create($tableName, function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
+            $table->string('prefix')->comment('one type has many series to use');
+            $table->integer('number')->unsigned()->comment('for each type+prefix');
+            $table->json('data')->nullable()->comment('store additional settings');
+            $table->timestamps();
+
+            $table->unique('type', 'prefix');
+        });
+    }
+
+    public function down()
+    {
+        $tableName = RuningNumber::getTableName();
+        $schema::dropIfExists($tableName);
+    }
+};

@@ -5,7 +5,7 @@ namespace Soap\Laravel\RunningNumbers\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Soap\Laravel\RunningNumber\RunningNumber\RunningNumber
+ * @see \Soap\Laravel\RunningNumbers\RunningNumber
  */
 class RunningNumber extends Facade
 {
