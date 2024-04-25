@@ -26,27 +26,22 @@ composer require soap/laravel-running-numbers
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-running-numbers-migrations"
+php artisan vendor:publish --tag="running-numbers-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-running-numbers-config"
+php artisan vendor:publish --tag="running-numbers-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+    'table_prefix' => '',
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-running-numbers-views"
 ```
 
 ## Usage
