@@ -5,7 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/soap/laravel-running-numbers/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/soap/laravel-running-numbers/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/soap/laravel-running-numbers.svg?style=flat-square)](https://packagist.org/packages/soap/laravel-running-numbers)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+The package provides a class to generate running number, keep track of them in database table.
+One running number type can have many prefix to generate running number. Generated running numbers was not stored in database, just keep last number for each prefix.
+You can reset it to specified value for each prefix.
 
 ## Support us
 
