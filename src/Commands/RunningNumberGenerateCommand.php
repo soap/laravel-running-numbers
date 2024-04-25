@@ -18,9 +18,9 @@ class RunningNumberGenerateCommand extends Command
 
     public function handle(): int
     {
-        $this->comment('Generate running number for ' . $this->argument('type'));
-        $this->comment('prefix: ' . $this->argument('prefix'));
-        $this->comment('Length: ' . $this->option('length'));
+        $this->comment('Generate running number for '.$this->argument('type'));
+        $this->comment('prefix: '.$this->argument('prefix'));
+        $this->comment('Length: '.$this->option('length'));
 
         $runningNumber = RunningNumber::generate(
             $this->argument('type'),
@@ -28,7 +28,8 @@ class RunningNumberGenerateCommand extends Command
             $this->option('length'),
         );
 
-        $this->comment('Running number: ' . $runningNumber);
+        $this->comment('Running number: '.$runningNumber);
+
         return self::SUCCESS;
     }
 }

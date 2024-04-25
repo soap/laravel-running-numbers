@@ -13,7 +13,7 @@ class RunningNumber
 
     public static function getTableName()
     {
-        return self::getTablePrefix() . 'running_numbers';
+        return self::getTablePrefix().'running_numbers';
     }
 
     public static function generate($type, $prefix, $length = 3, $reset = false)
@@ -39,7 +39,7 @@ class RunningNumber
             $runningNumber->save();
         }
 
-        return $prefix . str_pad($runningNumber->number, $length, '0', STR_PAD_LEFT);
+        return $prefix.str_pad($runningNumber->number, $length, '0', STR_PAD_LEFT);
     }
 
     public static function make($type, $prefix, $length = 3, $reset = false)
