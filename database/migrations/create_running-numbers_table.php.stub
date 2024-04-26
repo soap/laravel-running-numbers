@@ -18,13 +18,13 @@ return new class extends Migration
             $table->json('data')->nullable()->comment('store additional settings');
             $table->timestamps();
 
-            $table->unique('type', 'prefix');
+            $table->unique(['type', 'prefix'], 'type_prefix_unique');
         });
     }
 
     public function down()
     {
-        $tableName = RuningNumber::getTableName();
-        $schema::dropIfExists($tableName);
+        $tableName = RunningNumber::getTableName();
+        Schema::dropIfExists($tableName);
     }
 };
