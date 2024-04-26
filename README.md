@@ -49,8 +49,10 @@ return [
 ## Usage
 
 ```php
-$runningNumber = new Soap\Laravel\RunningNumber\RunningNumber();
-echo $runningNumber->echoPhrase('Hello, Soap\Laravel\RunningNumber!');
+use Soap\Laravel\RunningNumbers\RunningNumber;
+
+$runningNumber = RunningNumber::generate('student_code', '672');
+
 ```
 
 ## Testing
