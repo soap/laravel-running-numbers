@@ -12,7 +12,6 @@ class RunningNumberInstallCommand extends Command
 
     public function handle(): int
     {
-        
 
         return self::SUCCESS;
     }
