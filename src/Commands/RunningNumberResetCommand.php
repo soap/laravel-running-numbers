@@ -14,17 +14,17 @@ class RunningNumberResetCommand extends Command
 
     public function handle(): int
     {
-        $this->comment('Reset running number of ' 
-            . $this->argument('type') 
-            . ' with prefix ' 
-            . $this->argument('prefix') 
-            . ' to ' . $this->option('reset-value') 
-            . '...');
+        $this->comment('Reset running number of '
+            .$this->argument('type')
+            .' with prefix '
+            .$this->argument('prefix')
+            .' to '.$this->option('reset-value')
+            .'...');
 
         RunningNumberKeeper::where('type', $this->argument('type'))
             ->where('prefix', $this->argument('prefix'))
             ->update(['number' => $this->option('reset-value')]);
-        
+
         return self::SUCCESS;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Soap\Laravel\RunningNumbers;
 
-use Soap\Laravel\RunningNumbers\Commands;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
