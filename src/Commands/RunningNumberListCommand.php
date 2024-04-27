@@ -9,17 +9,16 @@ class RunningNumberListCommand extends Command
 {
     public $signature = 'runningnumber:list 
         {type? : Type of running number} 
-        {prefix? : Prefix before running number}';  
+        {prefix? : Prefix before running number}';
 
     public $description = 'List running number tracking';
 
-    
     public function handle(): int
     {
         $this->comment('List running number tracking');
         if ($this->argument('type') || $this->argument('prefix')) {
             $this->comment('Filter by:');
-        }else{
+        } else {
             $this->comment('All types and prefixes');
         }
         $this->newLine();
@@ -29,7 +28,7 @@ class RunningNumberListCommand extends Command
         if ($this->argument('prefix')) {
             $this->comment('prefix: '.$this->argument('prefix'));
         }
-        
+
         $query = RunningNumberKeeper::select('type', 'prefix', 'number');
         if ($this->argument('type')) {
             $query->where('type', $this->argument('type'));
@@ -42,8 +41,7 @@ class RunningNumberListCommand extends Command
         $this->table(['Type', 'Prefix', 'Number'],
             $query->get()->toArray()
         );
-    
+
         return self::SUCCESS;
     }
-
 }
