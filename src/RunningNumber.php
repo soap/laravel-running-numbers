@@ -65,7 +65,7 @@ class RunningNumber
                 $runningNumber->number = $resetValue;
             } else {
                 $runningNumber->number += 1;
-            }        
+            }
         }
 
         return $prefix.str_pad($runningNumber->number, $length, '0', STR_PAD_LEFT);
