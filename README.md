@@ -89,7 +89,7 @@ class StudentObserver
 ```
 
 ## Artisan Command
-# List
+### List
 
 ```php
 Usage:
@@ -100,7 +100,7 @@ Arguments:
   prefix                Prefix before running number
 ```
 
-# Generate
+### Generate
 
 ```php
 Usage:
@@ -111,7 +111,7 @@ Arguments:
   prefix                           Prefix before running number
 ```
 
-# Reset
+### Reset
 
 ```php
 Usage:
@@ -125,7 +125,7 @@ Options:
       --value[=VALUE]   Value to reset running number to [default: "1"]
 ```
 
-# Delele
+### Delele
 
 ```php
 Usage:
