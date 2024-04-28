@@ -23,6 +23,7 @@ class RunningNumberServiceProvider extends PackageServiceProvider
                 Commands\RunningNumberGenerateCommand::class,
                 Commands\RunningNumberResetCommand::class,
                 Commands\RunningNumberListCommand::class,
+                Commands\RunningNumberDeleteCommand::class,
             ]);
     }
 }

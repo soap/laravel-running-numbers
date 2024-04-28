@@ -70,4 +70,44 @@ class RunningNumber
 
         return $prefix.str_pad($runningNumber->number, $length, '0', STR_PAD_LEFT);
     }
+
+    public static function reset(string $type, string $prefix, int $value = 1)
+    {
+        $runningNumber = RunningNumberKeeper::where('type', $type)
+            ->where('prefix', $prefix)
+            ->first();
+
+        if (! $runningNumber) {
+            $runningNumber = new RunningNumberKeeper();
+            $runningNumber->type = $type;
+            $runningNumber->prefix = $prefix;
+            $runningNumber->number = $value;
+            $runningNumber->save();
+        } else {
+            $runningNumber->number = $value;
+            $runningNumber->save();
+        }
+    }
+
+    public static function list(?string $type = null, ?string $prefix = null)
+    {
+        $query = RunningNumberKeeper::select('type', 'prefix', 'number');
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        if ($prefix) {
+            $query->where('prefix', $prefix);
+        }
+
+        return $query->get()->toArray();
+    }
+
+    public static function delete(string $type, string $prefix)
+    {
+        RunningNumberKeeper::where('type', $type)
+            ->where('prefix', $prefix)
+            ->delete();
+
+    }
 }
