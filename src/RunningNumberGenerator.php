@@ -2,8 +2,6 @@
 
 namespace Soap\Laravel\RunningNumbers;
 
-use Soap\Laravel\RuningNumbers\RunningNumber;
-
 class RunningNumberGenerator
 {
     protected $type = 'Default';
@@ -68,7 +66,7 @@ class RunningNumberGenerator
             RunningNumber::reset($this->type, $this->prefix, $this->runningNumber);
         }
 
-        $this->runningNumber = RuningNumber::next($this->type, $this->prefix);
+        $this->runningNumber = RunningNumber::next($this->type, $this->prefix);
 
         $paddedNumber = str_pad($this->runningNumber, $this->length, '0', STR_PAD_LEFT);
 
