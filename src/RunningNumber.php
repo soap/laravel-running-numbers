@@ -26,7 +26,7 @@ class RunningNumber
             ->first();
 
         if (! $runningNumber) {
-            $runningNumber = new RunningNumberKeeper();
+            $runningNumber = new RunningNumberKeeper;
             $runningNumber->type = $type;
             $runningNumber->prefix = $prefix;
             if ($reset) {
@@ -56,7 +56,7 @@ class RunningNumber
             ->where('prefix', $prefix)
             ->first();
         if (! $runningNumber) {
-            $runningNumber = new RunningNumberKeeper();
+            $runningNumber = new RunningNumberKeeper;
             $runningNumber->type = $type;
             $runningNumber->prefix = $prefix;
             if ($reset) {
@@ -84,7 +84,7 @@ class RunningNumber
             ->first();
 
         if (! $runningNumber) {
-            $runningNumber = new RunningNumberKeeper();
+            $runningNumber = new RunningNumberKeeper;
             $runningNumber->type = $type;
             $runningNumber->prefix = $prefix;
             $runningNumber->number = $value;
@@ -129,7 +129,7 @@ class RunningNumber
             ->first();
 
         if (! $runningNumber) {
-            $runningNumber = new RunningNumberKeeper();
+            $runningNumber = new RunningNumberKeeper;
             $runningNumber->type = $type;
             $runningNumber->prefix = $prefix;
             $runningNumber->number = 1;
