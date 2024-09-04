@@ -16,6 +16,12 @@ class RunningNumberGenerator
 
     protected $format = '{PREFIX}-{NUMBER}';
 
+    private $tokens = [
+        'TYPE',
+        'PREFIX',
+        'NUMBER',
+    ];
+
     public static function make()
     {
         return new static(self::class);
@@ -55,6 +61,8 @@ class RunningNumberGenerator
      */
     public function format($format)
     {
+        $this->validateFormat($format);
+
         $this->format = $format;
 
         return $this;
@@ -62,8 +70,13 @@ class RunningNumberGenerator
 
     public function generate()
     {
+        if (empty($this->prefix)) {
+            $this->prefix = date('Y');
+        }
+
         if ($this->reset) {
             RunningNumber::reset($this->type, $this->prefix, $this->runningNumber);
+            $this->reset = false;
         }
 
         $this->runningNumber = RunningNumber::next($this->type, $this->prefix);
@@ -76,5 +89,20 @@ class RunningNumberGenerator
             [$this->type, $this->prefix, $paddedNumber],
             $this->format
         );
+    }
+
+    protected function validateFormat($format)
+    {
+        $pattern = "/\{([^}]+)\}/"; // Match anything inside curly braces
+        preg_match_all($pattern, $format, $matches);
+
+        $resultArray = $matches[1]; // extract the tokens from the matches
+
+        foreach ($resultArray as $token) {
+            if (! in_array($token, $this->tokens)) {
+                throw new \Exception("Invalid token: {$token}");
+            }
+        }
+
     }
 }
