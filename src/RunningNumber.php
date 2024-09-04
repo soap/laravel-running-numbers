@@ -16,6 +16,9 @@ class RunningNumber
         return self::getTablePrefix().'running_numbers';
     }
 
+    /**
+     * @deprecated next version will remove this method, use RunningNumberGenerator::make() instead
+     */
     public static function generate(string $type, string $prefix, int $length = 3, bool $reset = false, int $resetValue = 1)
     {
         $runningNumber = RunningNumberKeeper::where('type', $type)
@@ -23,7 +26,7 @@ class RunningNumber
             ->first();
 
         if (! $runningNumber) {
-            $runningNumber = new RunningNumberKeeper();
+            $runningNumber = new RunningNumberKeeper;
             $runningNumber->type = $type;
             $runningNumber->prefix = $prefix;
             if ($reset) {
@@ -44,13 +47,16 @@ class RunningNumber
         return $prefix.str_pad($runningNumber->number, $length, '0', STR_PAD_LEFT);
     }
 
+    /**
+     * @deprecated next version will remove this method, use RunningNumberGenerator::make() instead
+     */
     public static function make(string $type, string $prefix, int $length = 3, bool $reset = false, int $resetValue = 1)
     {
         $runningNumber = RunningNumberKeeper::where('type', $type)
             ->where('prefix', $prefix)
             ->first();
         if (! $runningNumber) {
-            $runningNumber = new RunningNumberKeeper();
+            $runningNumber = new RunningNumberKeeper;
             $runningNumber->type = $type;
             $runningNumber->prefix = $prefix;
             if ($reset) {
@@ -78,7 +84,7 @@ class RunningNumber
             ->first();
 
         if (! $runningNumber) {
-            $runningNumber = new RunningNumberKeeper();
+            $runningNumber = new RunningNumberKeeper;
             $runningNumber->type = $type;
             $runningNumber->prefix = $prefix;
             $runningNumber->number = $value;
@@ -103,11 +109,51 @@ class RunningNumber
         return $query->get()->toArray();
     }
 
-    public static function delete(string $type, string $prefix)
+    public static function current(string $type, string $prefix)
     {
-        RunningNumberKeeper::where('type', $type)
+        $runningNumber = RunningNumberKeeper::where('type', $type)
             ->where('prefix', $prefix)
-            ->delete();
+            ->first();
 
+        if (! $runningNumber) {
+            return null;
+        }
+
+        return $runningNumber->number;
+    }
+
+    public static function next(string $type, string $prefix)
+    {
+        $runningNumber = RunningNumberKeeper::where('type', $type)
+            ->where('prefix', $prefix)
+            ->first();
+
+        if (! $runningNumber) {
+            $runningNumber = new RunningNumberKeeper;
+            $runningNumber->type = $type;
+            $runningNumber->prefix = $prefix;
+            $runningNumber->number = 1;
+            $runningNumber->save();
+        } else {
+            $runningNumber->number += 1;
+            $runningNumber->save();
+        }
+
+        return $runningNumber->number;
+    }
+
+    public static function delete(string $type, ?string $prefix = null)
+    {
+        $query = RunningNumberKeeper::where('type', $type);
+        if ($prefix) {
+            $query->where('prefix', $prefix);
+        }
+
+        return $query->delete();
+    }
+
+    public static function flush()
+    {
+        return RunningNumberKeeper::truncate();
     }
 }
