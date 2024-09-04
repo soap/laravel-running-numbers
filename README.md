@@ -45,6 +45,10 @@ return [
 
 ## Usage
 
+Using RunningNumber class to generate running number is deprecated. Now I introduced RunningNumberGenerator class instead.
+
+### This is for version less than 0.0.6.
+
 ```php
 RunningNumber::generate('STUDENT_CODE', '672', 3);
 // 673001
@@ -86,6 +90,40 @@ class StudentObserver
     }
 }
 
+```
+### For verison 0.0.6 and above;
+
+#### Using RunningNumberGenerator to generate and reset value.
+```
+  RunningNumberGenerator::make()
+     ->type('STUDENT_CODE')->prefix("672")->generate();
+```
+If type was not provided, 'Default' will be used. If prefix was not provided, date("Y") will be used.
+
+### Set Running number format
+Availabe token are {TYPE}, {PREFIX}, {NUMBER}. These information will be keep tracked in database record.
+```
+    RunningNumberGenerator::make()
+     ->type('STUDENT_CODE')->prefix("672")->format("{PREFIX}-{NUMBER}")->generate();   
+```
+
+### Reset running number to specified value. 
+Zero value if no value passed. Call generate(), running number will be increased by one and saved to database.
+```
+   RunningNumberGenerator::make()
+     ->type('STUDENT_CODE')->prefix("672")->->format("{PREFIX}-{NUMBER}")->reset()->generate();
+   // return 672-001
+   RunningNumberGenerator::make()
+     ->type('STUDENT_CODE')->prefix("672")->->format("{PREFIX}-{NUMBER}")->reset(1)->generate();
+   // return 672-002
+```
+
+### Set length of padding number.
+If not set length of 3 will be used.
+```
+   RunningNumberGenerator::make()
+     ->type('STUDENT_CODE')->prefix("672")->->format("{PREFIX}-{NUMBER}")->length(4)->reset()->generate();
+   // return 672-0001
 ```
 
 ## Artisan Command
