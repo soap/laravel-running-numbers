@@ -1,8 +1,11 @@
 <?php
 
+// declare(strict_types = 1);
+
 namespace Soap\Laravel\RunningNumbers;
 
-class RunningNumberGenerator
+/** @phpstan-consistent-constructor */
+final class RunningNumberGenerator
 {
     protected $type = 'Default';
 
@@ -22,33 +25,33 @@ class RunningNumberGenerator
         'NUMBER',
     ];
 
-    public static function make()
+    public static function make(): self
     {
-        return new static(self::class);
+        return new RunningNumberGenerator();
     }
 
-    public function type($type)
+    public function type($type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function prefix($prefix)
+    public function prefix($prefix): self
     {
         $this->prefix = $prefix;
 
         return $this;
     }
 
-    public function length($length)
+    public function length($length): self
     {
         $this->length = $length;
 
         return $this;
     }
 
-    public function reset($value = 0)
+    public function reset($value = 0): self
     {
         $this->reset = true;
         $this->runningNumber = $value;
@@ -59,7 +62,7 @@ class RunningNumberGenerator
     /**
      * @todo validate format tokens
      */
-    public function format($format)
+    public function format($format): self
     {
         $this->validateFormat($format);
 
@@ -68,7 +71,7 @@ class RunningNumberGenerator
         return $this;
     }
 
-    public function generate()
+    public function generate(): string
     {
         if (empty($this->prefix)) {
             $this->prefix = date('Y');
@@ -91,7 +94,7 @@ class RunningNumberGenerator
         );
     }
 
-    protected function validateFormat($format)
+    protected function validateFormat($format): void
     {
         $pattern = "/\{([^}]+)\}/"; // Match anything inside curly braces
         preg_match_all($pattern, $format, $matches);

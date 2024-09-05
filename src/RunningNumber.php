@@ -44,7 +44,7 @@ class RunningNumber
             $runningNumber->save();
         }
 
-        return $prefix.str_pad($runningNumber->number, $length, '0', STR_PAD_LEFT);
+        return $prefix.str_pad((string) $runningNumber->number, $length, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -74,10 +74,10 @@ class RunningNumber
             }
         }
 
-        return $prefix.str_pad($runningNumber->number, $length, '0', STR_PAD_LEFT);
+        return $prefix.str_pad((string) $runningNumber->number, $length, '0', STR_PAD_LEFT);
     }
 
-    public static function reset(string $type, string $prefix, int $value = 0)
+    public static function reset(string $type, string $prefix, string|null|int $value = 0)
     {
         $runningNumber = RunningNumberKeeper::where('type', $type)
             ->where('prefix', $prefix)
