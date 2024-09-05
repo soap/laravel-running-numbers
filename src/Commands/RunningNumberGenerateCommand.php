@@ -3,7 +3,7 @@
 namespace Soap\Laravel\RunningNumbers\Commands;
 
 use Illuminate\Console\Command;
-use Soap\Laravel\RunningNumbers\RunningNumber;
+use Soap\Laravel\RunningNumbers\RunningNumberGenerator;
 
 class RunningNumberGenerateCommand extends Command
 {
@@ -11,6 +11,7 @@ class RunningNumberGenerateCommand extends Command
         {type : Type of running number} 
         {prefix : Prefix before running number} 
         {--length=4 : Length of running number padding with zero} 
+        {--format={PREFIX}-{NUMBER} : Format of running number}
         {--reset : Reset running number to reset-value} 
         {--reset-value=1 : Value to reset running number to}';
 
@@ -19,14 +20,15 @@ class RunningNumberGenerateCommand extends Command
     public function handle(): int
     {
         $this->comment('Generate running number for '.$this->argument('type'));
-        $this->comment('prefix: '.$this->argument('prefix'));
+        $this->comment('Prefix: '.$this->argument('prefix'));
         $this->comment('Length: '.$this->option('length'));
+        $this->comment('Format: '.$this->option('format'));
 
-        $runningNumber = RunningNumber::generate(
-            $this->argument('type'),
-            $this->argument('prefix'),
-            $this->option('length'),
-        );
+        $runningNumber = RunningNumberGenerator::make()
+            ->type($this->argument('type'))
+            ->prefix($this->argument('prefix'))
+            ->prefix($this->option('length'))
+            ->format($this->option('format'))->generate();
 
         $this->comment('Running number: '.$runningNumber);
 

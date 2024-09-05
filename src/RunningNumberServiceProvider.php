@@ -17,7 +17,7 @@ class RunningNumberServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-running-numbers')
             ->hasConfigFile()
-            ->hasMigration('create_running-numbers_table')
+            ->hasMigration('create_running_numbers_table')
             ->hasCommands([
                 Commands\RunningNumberInstallCommand::class,
                 Commands\RunningNumberGenerateCommand::class,

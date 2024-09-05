@@ -3,6 +3,7 @@
 namespace Soap\Laravel\RunningNumbers\Commands;
 
 use Illuminate\Console\Command;
+use Soap\Laravel\RunningNumbers\RunningNumber;
 
 class RunningNumberResetCommand extends Command
 {
