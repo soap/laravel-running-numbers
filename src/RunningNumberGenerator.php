@@ -6,7 +6,6 @@ namespace Soap\Laravel\RunningNumbers;
 
 /** @phpstan-consistent-constructor */
 final class RunningNumberGenerator
-
 {
     protected $type = 'Default';
 
