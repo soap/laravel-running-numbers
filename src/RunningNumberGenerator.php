@@ -27,7 +27,7 @@ final class RunningNumberGenerator
 
     public static function make(): self
     {
-        return new RunningNumberGenerator();
+        return new RunningNumberGenerator;
     }
 
     public function type($type): self
