@@ -17,7 +17,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        # Laravel 12 ต้องการ PHP 8.2+, รวม PHP 8.4 สำหรับการทดสอบ forward compatibility
+        # Laravel 13 ต้องการ PHP 8.3+, Laravel 12 ต้องการ PHP 8.2+, รวม PHP 8.4 สำหรับการทดสอบ forward compatibility
         php: [8.4, 8.3, 8.2]
         laravel: [10.*, 11.*, 12.*, 13.*]
         stability: [prefer-stable]
@@ -41,6 +41,9 @@ jobs:
             php: 8.1
           - laravel: 12.*
             php: 8.1
+          # Laravel 13.x ต้องการ PHP 8.3+ เท่านั้น
+          - laravel: 13.*
+            php: 8.2
           # Laravel 10.x อาจไม่รองรับ PHP 8.4 อย่างสมบูรณ์
           - laravel: 10.*
             php: 8.4
@@ -75,9 +78,9 @@ jobs:
       - name: Execute tests
         run: vendor/bin/pest --ci
 
-      # เพิ่ม step สำหรับ health check (Laravel 12 มี built-in health check)
+      # เพิ่ม step สำหรับ health check (Laravel 12+ มี built-in health check)
       - name: Health Check (Laravel 12+)
-        if: contains(matrix.laravel, '12.*')
+        if: contains(matrix.laravel, '12.*') || contains(matrix.laravel, '13.*')
         run: |
           php artisan serve --host=127.0.0.1 --port=8000 &
           sleep 2
