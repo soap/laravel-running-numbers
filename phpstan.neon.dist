@@ -7,6 +7,6 @@ parameters:
         - config
         - database
     tmpDir: build/phpstan
-    checkOctaneCompatibility: false
-    checkModelProperties: false
+    # checkOctaneCompatibility: false
+    # checkModelProperties: false
 
