@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Soap\Laravel\RunningNumbers\Commands;
 
 use Illuminate\Console\Command;
@@ -23,7 +25,7 @@ class RunningNumberResetCommand extends Command
         RunningNumber::reset(
             $this->argument('type'),
             $this->argument('prefix'),
-            $this->option('value')
+            (int) $this->option('value')
         );
 
         return self::SUCCESS;

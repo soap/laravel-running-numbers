@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Soap\Laravel\RunningNumbers\Facades;
 
 use Illuminate\Support\Facades\Facade;
