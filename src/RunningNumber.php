@@ -117,7 +117,8 @@ class RunningNumber
             ['number' => 0]
         );
 
-        $runningNumber->increment('number');
+        RunningNumberKeeper::where(['type' => $type, 'prefix' => $prefix])->increment('number');
+        $runningNumber->refresh();
 
         return $runningNumber->number;
     }
@@ -132,8 +133,8 @@ class RunningNumber
         return $query->delete();
     }
 
-    public static function flush()
+    public static function flush(): void
     {
-        return RunningNumberKeeper::truncate();
+        RunningNumberKeeper::truncate();
     }
 }

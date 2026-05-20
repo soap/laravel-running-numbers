@@ -11,6 +11,12 @@ use Soap\Laravel\RunningNumbers\RunningNumber;
  * @property string $type
  * @property string $prefix
  * @property int $number
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static> where(\Closure|string|array<string, mixed> $column, mixed $operator = null, mixed $value = null, string $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder<static> select(array<int, string>|string ...$columns)
+ * @method static static updateOrCreate(array<string, mixed> $attributes, array<string, mixed> $values = [])
+ * @method static static firstOrCreate(array<string, mixed> $attributes, array<string, mixed> $values = [])
+ * @method static void truncate()
  */
 class RunningNumberKeeper extends Model
 {
