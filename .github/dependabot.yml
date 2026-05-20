@@ -8,8 +8,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    labels:
-      - "dependencies"
 
   - package-ecosystem: "composer"
     directory: "/"
