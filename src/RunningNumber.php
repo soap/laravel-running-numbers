@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Soap\Laravel\RunningNumbers;
 
 use Soap\Laravel\RunningNumbers\Models\RunningNumberKeeper;
@@ -77,22 +79,12 @@ class RunningNumber
         return $prefix.str_pad((string) $runningNumber->number, $length, '0', STR_PAD_LEFT);
     }
 
-    public static function reset(string $type, string $prefix, string|null|int $value = 0)
+    public static function reset(string $type, string $prefix, string|null|int $value = 0): void
     {
-        $runningNumber = RunningNumberKeeper::where('type', $type)
-            ->where('prefix', $prefix)
-            ->first();
-
-        if (! $runningNumber) {
-            $runningNumber = new RunningNumberKeeper;
-            $runningNumber->type = $type;
-            $runningNumber->prefix = $prefix;
-            $runningNumber->number = $value;
-            $runningNumber->save();
-        } else {
-            $runningNumber->number = $value;
-            $runningNumber->save();
-        }
+        RunningNumberKeeper::updateOrCreate(
+            ['type' => $type, 'prefix' => $prefix],
+            ['number' => $value]
+        );
     }
 
     public static function list(?string $type = null, ?string $prefix = null)
@@ -109,35 +101,23 @@ class RunningNumber
         return $query->get()->toArray();
     }
 
-    public static function current(string $type, string $prefix)
+    public static function current(string $type, string $prefix): ?int
     {
         $runningNumber = RunningNumberKeeper::where('type', $type)
             ->where('prefix', $prefix)
             ->first();
 
-        if (! $runningNumber) {
-            return null;
-        }
-
-        return $runningNumber->number;
+        return $runningNumber?->number;
     }
 
-    public static function next(string $type, string $prefix)
+    public static function next(string $type, string $prefix): int
     {
-        $runningNumber = RunningNumberKeeper::where('type', $type)
-            ->where('prefix', $prefix)
-            ->first();
+        $runningNumber = RunningNumberKeeper::firstOrCreate(
+            ['type' => $type, 'prefix' => $prefix],
+            ['number' => 0]
+        );
 
-        if (! $runningNumber) {
-            $runningNumber = new RunningNumberKeeper;
-            $runningNumber->type = $type;
-            $runningNumber->prefix = $prefix;
-            $runningNumber->number = 1;
-            $runningNumber->save();
-        } else {
-            $runningNumber->number += 1;
-            $runningNumber->save();
-        }
+        $runningNumber->increment('number');
 
         return $runningNumber->number;
     }
