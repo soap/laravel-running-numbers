@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Soap\Laravel\RunningNumbers\RunningNumber;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        $tableName = RunningNumber::getTableName();
+
+        Schema::table($tableName, function (Blueprint $table) {
+            $table->index(['type', 'prefix'], 'type_prefix_index');
+        });
+    }
+
+    public function down(): void
+    {
+        $tableName = RunningNumber::getTableName();
+
+        Schema::table($tableName, function (Blueprint $table) {
+            $table->dropIndex('type_prefix_index');
+        });
+    }
+};

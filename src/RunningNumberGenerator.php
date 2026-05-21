@@ -1,25 +1,25 @@
 <?php
 
-// declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Soap\Laravel\RunningNumbers;
 
 /** @phpstan-consistent-constructor */
 final class RunningNumberGenerator
 {
-    protected $type = 'Default';
+    protected string $type = 'Default';
 
-    protected $prefix;
+    protected ?string $prefix = null;
 
-    protected $length = 3;
+    protected int $length = 3;
 
-    protected $reset = false;
+    protected bool $reset = false;
 
-    protected $runningNumber;
+    protected ?int $runningNumber = null;
 
-    protected $format = '{PREFIX}-{NUMBER}';
+    protected string $format = '{PREFIX}-{NUMBER}';
 
-    private $tokens = [
+    private array $tokens = [
         'TYPE',
         'PREFIX',
         'NUMBER',
@@ -30,28 +30,28 @@ final class RunningNumberGenerator
         return new RunningNumberGenerator;
     }
 
-    public function type($type): self
+    public function type(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function prefix($prefix): self
+    public function prefix(string $prefix): self
     {
         $this->prefix = $prefix;
 
         return $this;
     }
 
-    public function length($length): self
+    public function length(int $length): self
     {
         $this->length = $length;
 
         return $this;
     }
 
-    public function reset($value = 0): self
+    public function reset(int $value = 0): self
     {
         $this->reset = true;
         $this->runningNumber = $value;
@@ -62,7 +62,7 @@ final class RunningNumberGenerator
     /**
      * @todo validate format tokens
      */
-    public function format($format): self
+    public function format(string $format): self
     {
         $this->validateFormat($format);
 
@@ -84,7 +84,7 @@ final class RunningNumberGenerator
 
         $this->runningNumber = RunningNumber::next($this->type, $this->prefix);
 
-        $paddedNumber = str_pad($this->runningNumber, $this->length, '0', STR_PAD_LEFT);
+        $paddedNumber = str_pad((string) $this->runningNumber, $this->length, '0', STR_PAD_LEFT);
 
         return str_replace([
             '{TYPE}', '{PREFIX}', '{NUMBER}',
@@ -94,7 +94,7 @@ final class RunningNumberGenerator
         );
     }
 
-    protected function validateFormat($format): void
+    protected function validateFormat(string $format): void
     {
         $pattern = "/\{([^}]+)\}/"; // Match anything inside curly braces
         preg_match_all($pattern, $format, $matches);
@@ -102,7 +102,7 @@ final class RunningNumberGenerator
         $resultArray = $matches[1]; // extract the tokens from the matches
 
         foreach ($resultArray as $token) {
-            if (! in_array($token, $this->tokens)) {
+            if (! in_array($token, $this->tokens, true)) {
                 throw new \Exception("Invalid token: {$token}");
             }
         }

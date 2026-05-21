@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Soap\Laravel\RunningNumbers;
 
 use Spatie\LaravelPackageTools\Package;
@@ -18,6 +20,7 @@ class RunningNumberServiceProvider extends PackageServiceProvider
             ->name('laravel-running-numbers')
             ->hasConfigFile()
             ->hasMigration('create_running_numbers_table')
+            ->hasMigration('add_composite_index_to_running_numbers_table')
             ->hasCommands([
                 Commands\RunningNumberInstallCommand::class,
                 Commands\RunningNumberGenerateCommand::class,

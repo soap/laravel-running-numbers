@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Soap\Laravel\RunningNumbers\Commands;
 
 use Illuminate\Console\Command;
@@ -24,11 +26,17 @@ class RunningNumberGenerateCommand extends Command
         $this->comment('Length: '.$this->option('length'));
         $this->comment('Format: '.$this->option('format'));
 
-        $runningNumber = RunningNumberGenerator::make()
+        $generator = RunningNumberGenerator::make()
             ->type($this->argument('type'))
             ->prefix($this->argument('prefix'))
-            ->prefix($this->option('length'))
-            ->format($this->option('format'))->generate();
+            ->length((int) $this->option('length'))
+            ->format($this->option('format'));
+
+        if ($this->option('reset')) {
+            $generator->reset((int) $this->option('reset-value'));
+        }
+
+        $runningNumber = $generator->generate();
 
         $this->comment('Running number: '.$runningNumber);
 
